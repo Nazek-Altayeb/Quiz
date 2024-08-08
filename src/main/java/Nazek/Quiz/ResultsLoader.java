@@ -31,11 +31,12 @@ public class ResultsLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         List<QuestionModel> questions = new ArrayList<>();
-
         JsonNode json;
 
-        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/OpenTRIVIA_Response.json")) {
-            json = objectMapper.readValue(inputStream, JsonNode.class);
+        /*To be refactored, instead : fetch data from the url: https://opentdb.com/api.php?amount=10&category=18&difficulty=hard&type=multiple
+        * and pass the amount, category and difficulty as variables */
+        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/OpenTRAVIA.json")){
+               json = objectMapper.readValue(inputStream, JsonNode.class);
         } catch (IOException e) {
             throw new RuntimeException("Failed to read JSON data", e);
         }
@@ -55,11 +56,11 @@ public class ResultsLoader implements CommandLineRunner {
     }
 
     private QuestionModel createQuestionFromNode(JsonNode result) {
-        JsonNode node = result.get("node");
-        String question = node.get("question").asText();
-        String category = node.get("category").asText();
-        String difficulty = node.get("difficulty").asText();
-        String correct_answer = node.get("correct_answer").asText();
+        // JsonNode node = result.get("node");
+        String question = result.get("question").asText();
+        String category = result.get("category").asText();
+        String difficulty = result.get("difficulty").asText();
+        String correct_answer = result.get("correct_answer").asText();
 
         return new QuestionModel(difficulty,category, question, correct_answer);
     }
