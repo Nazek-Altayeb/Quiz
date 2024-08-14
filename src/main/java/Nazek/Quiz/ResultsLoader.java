@@ -4,6 +4,7 @@ package Nazek.Quiz;
 import Question.QuestionModel;
 import Question.QuestionRepository;
 import aj.org.objectweb.asm.TypeReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 @Component
@@ -33,10 +37,31 @@ public class ResultsLoader implements CommandLineRunner {
         List<QuestionModel> questions = new ArrayList<>();
         JsonNode json;
 
-        /*To be refactored, instead : fetch data from the url: https://opentdb.com/api.php?amount=10&category=18&difficulty=hard&type=multiple
-        * and pass the amount, category and difficulty as variables */
+        /*
         try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/OpenTRAVIA.json")){
                json = objectMapper.readValue(inputStream, JsonNode.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read JSON data", e);
+        }*/
+
+        /*
+        * fetch data from Internet URL and save data into json file.
+        * To be refactored, instead : pass the (amount, difficulty ) as variables entered by the end-user from the front-end.
+         * */
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category=17&difficulty=medium&type=multiple").openStream());
+             FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
+            byte dataBuffer[] = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            // handle exception
+            System.out.println (e.toString());
+        }
+
+        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/Test.json")){
+            json = objectMapper.readValue(inputStream, JsonNode.class);
         } catch (IOException e) {
             throw new RuntimeException("Failed to read JSON data", e);
         }
