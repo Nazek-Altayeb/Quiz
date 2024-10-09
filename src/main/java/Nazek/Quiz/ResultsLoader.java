@@ -4,7 +4,6 @@ package Nazek.Quiz;
 import Question.QuestionModel;
 import Question.QuestionRepository;
 import aj.org.objectweb.asm.TypeReference;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,6 @@ public class ResultsLoader implements CommandLineRunner {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            // handle exception
             System.out.println (e.toString());
         }
 
@@ -81,13 +79,19 @@ public class ResultsLoader implements CommandLineRunner {
     }
 
     private QuestionModel createQuestionFromNode(JsonNode result) {
-        // JsonNode node = result.get("node");
         String question = result.get("question").asText();
         String category = result.get("category").asText();
         String difficulty = result.get("difficulty").asText();
         String correct_answer = result.get("correct_answer").asText();
+        String[] incorrect_answers = new String[3];
+        Iterator<JsonNode> iterator = result.withArray("incorrect_answers").elements();
+       int count =0;
+        while (iterator.hasNext()) {
+            incorrect_answers[count] = iterator.next().asText();
+            count ++;
+        }
 
-        return new QuestionModel(difficulty,category, question, correct_answer);
+        return new QuestionModel(difficulty,category, question, correct_answer, incorrect_answers);
     }
 
 }
