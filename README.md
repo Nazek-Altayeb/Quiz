@@ -29,8 +29,8 @@ I have followed the iterative approach, every unit of related tasks are grouped 
   - [x] [Send Questions data to frontend ] <code style="color:red">(Must have)</code>
 
 - **Sprint 2**
-  - [x] [Create User table] <code style="color:red">(could have)</code> 
-  - [x] [CRUD User] <code style="color:red">(could have)</code> 
+  - [] [Create User table] <code style="color:red">(could have)</code> 
+  - [] [CRUD User] <code style="color:red">(could have)</code> 
 
 
 
