@@ -23,10 +23,14 @@ The tasks are prioritized according to `MOSCOW`.
 I have followed the iterative approach, every unit of related tasks are grouped in one `Sprint`.
 
 - **Sprint 1**
-    - [x] [User story: Setup environment] <code style="color:red">(Must have)</code>
-    - [x] [User story: Load data from Frontend] <code style="color:red">(Must have)</code>
-    - [x] [User story: Retrieve data from Open-Trivia] <code style="color:red">(Must have)</code>
-    - [x] [User story: Send Questions data to frontend ] <code style="color:red">(Must have)</code>
+  - [x] [Setup environment] <code style="color:red">(Must have)</code>
+  - [x] [Load data from Frontend] <code style="color:red">(Must have)</code>
+  - [x] [Retrieve data from Open-Trivia] <code style="color:red">(Must have)</code>
+  - [x] [Send Questions data to frontend ] <code style="color:red">(Must have)</code>
+
+- **Sprint 2**
+  - [x] [Create User table] <code style="color:red">(could have)</code> 
+  - [x] [CRUD User] <code style="color:red">(could have)</code> 
 
 
 
