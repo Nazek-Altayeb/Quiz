@@ -47,7 +47,7 @@ public class ResultsLoader implements CommandLineRunner {
         * fetch data from Internet URL and save data into json file.
         * To be refactored, instead : pass the (amount, difficulty ) as variables entered by the end-user from the front-end.
          * */
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category=17&difficulty=medium&type=multiple").openStream());
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple").openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
@@ -58,6 +58,7 @@ public class ResultsLoader implements CommandLineRunner {
             System.out.println (e.toString());
         }
 
+        // save results to database
         try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/Test.json")){
             json = objectMapper.readValue(inputStream, JsonNode.class);
         } catch (IOException e) {
