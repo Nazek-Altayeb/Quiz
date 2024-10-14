@@ -1,8 +1,7 @@
 package Nazek.Quiz;
 
 
-import Question.QuestionModel;
-import Question.QuestionRepository;
+import Question.*;
 import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,9 +25,13 @@ public class ResultsLoader implements CommandLineRunner {
     @Autowired
     private final QuestionRepository questionRepository;
 
-    public ResultsLoader(ObjectMapper objectMapper, QuestionRepository questionRepository) {
+    @Autowired
+    private final QuizDetailsRepository quizDetailsRepository;
+
+    public ResultsLoader(ObjectMapper objectMapper, QuestionRepository questionRepository, QuizDetailsRepository quizDetailsRepository) {
         this.objectMapper = objectMapper;
         this.questionRepository = questionRepository;
+        this.quizDetailsRepository = quizDetailsRepository;
     }
 
     @Override
@@ -47,7 +50,15 @@ public class ResultsLoader implements CommandLineRunner {
         * fetch data from Internet URL and save data into json file.
         * To be refactored, instead : pass the (amount, difficulty ) as variables entered by the end-user from the front-end.
          * */
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple").openStream());
+        /*QuizModel quizDetails = quizDetailsRepository.findFirstByOrderByIdDesc();
+        String category = quizDetails.getCategory();
+        Number amountOfQuestions = quizDetails.getAmountOfQuestions();
+        String difficulty = quizDetails.getDifficulty();*/
+
+        // Category , amountOfQuestions and difficulty  are now available in quiz table,
+        // read from table, save to local json file, then load the last object and assign values to url.
+
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=${amountOfQuestions}&category=${category}&difficulty=${difficulty}&type=multiple").openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;

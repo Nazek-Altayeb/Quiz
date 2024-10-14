@@ -1,9 +1,6 @@
 package Question;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class QuizModel {
@@ -12,8 +9,11 @@ public class QuizModel {
             strategy = GenerationType.IDENTITY
     )
     int id;
+
     String difficulty;
+
     String category;
+
     Number amountOfQuestions;
 
     public QuizModel(){}
