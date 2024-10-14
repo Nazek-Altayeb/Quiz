@@ -15,4 +15,5 @@ public class QuestionService {
     public List<QuestionModel> getAllQuestions(){
         return questionRepository.findAll();
     }
+
 }
