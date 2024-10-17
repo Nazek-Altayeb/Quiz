@@ -24,12 +24,16 @@ public class QuizController {
         QuizModel quiz= quizService.postQuizDetails(quizDetails);
 
 
-        /*try {
+        try {
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        questionsLoader.downloadQuestions();*/
+
+        String category = quizService.GetQuizDetails().getCategory();
+        String difficulty = quizService.GetQuizDetails().getDifficulty();
+
+        questionsLoader.downloadQuestions(category, difficulty);
 
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }

@@ -21,18 +21,15 @@ public class QuestionController {
     @Autowired
     private QuestionsLoader questionsLoader;
 
-
-    // Aggregate root
     @GetMapping(path= "/allQuestions")
     public ResponseEntity<List<QuestionModel>> getAllQuestions() {
-       questionsLoader.downloadQuestions();
 
-        // set a timer for few seconds
+      /*questionsLoader.downloadQuestions();
         try {
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         List<QuestionModel> allQuestions = questionService.getAllQuestions();
 

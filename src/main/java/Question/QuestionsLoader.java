@@ -4,6 +4,7 @@ import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Service
+@Component
 public class QuestionsLoader {
 
     private final ObjectMapper objectMapper;
@@ -34,14 +35,14 @@ public class QuestionsLoader {
         this.quizService = quizService;
     }
 
-    public void downloadQuestions() {
+    public void downloadQuestions(String category, String difficulty) {
         List<QuestionModel> questions = new ArrayList<>();
         JsonNode json;
-        String Category = quizService.GetQuizDetails().getCategory();
-        String difficulty = quizService.GetQuizDetails().getDifficulty();
+        //String category = quizService.GetQuizDetails().getCategory();
+        //String difficulty = quizService.GetQuizDetails().getDifficulty();
 
 
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category="+Category+"&difficulty="+difficulty+"&type=multiple").openStream());
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category="+category+"&difficulty="+difficulty+"&type=multiple").openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
