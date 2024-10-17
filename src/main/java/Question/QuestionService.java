@@ -15,5 +15,6 @@ public class QuestionService {
     public List<QuestionModel> getAllQuestions(){
         return questionRepository.findAll();
     }
+    public void  removeAll() { questionRepository.deleteAll();}
 
 }

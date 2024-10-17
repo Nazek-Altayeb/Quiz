@@ -1,64 +1,47 @@
-package Nazek.Quiz;
+package Question;
 
-
-import Question.*;
 import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
-@Component
-public class ResultsLoader implements CommandLineRunner {
 
+@Service
+public class QuestionsLoader {
 
     private final ObjectMapper objectMapper;
     @Autowired
     private final QuestionRepository questionRepository;
 
-    @Autowired
-    private final QuizDetailsRepository quizDetailsRepository;
 
-    public ResultsLoader(ObjectMapper objectMapper, QuestionRepository questionRepository, QuizDetailsRepository quizDetailsRepository) {
+    @Autowired
+    private final QuizService quizService;
+
+    public QuestionsLoader(ObjectMapper objectMapper, QuestionRepository questionRepository, QuizService quizService) {
         this.objectMapper = objectMapper;
         this.questionRepository = questionRepository;
-        this.quizDetailsRepository = quizDetailsRepository;
+        this.quizService = quizService;
     }
 
-    @Override
-    public void run(String... args) {
+    public void downloadQuestions() {
         List<QuestionModel> questions = new ArrayList<>();
         JsonNode json;
+        String Category = quizService.GetQuizDetails().getCategory();
+        String difficulty = quizService.GetQuizDetails().getDifficulty();
 
-        /*
-        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/Data/OpenTRAVIA.json")){
-               json = objectMapper.readValue(inputStream, JsonNode.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read JSON data", e);
-        }*/
 
-        /*
-        * fetch data from Internet URL and save data into json file.
-        * To be refactored, instead : pass the (amount, difficulty ) as variables entered by the end-user from the front-end.
-         * */
-        /*QuizModel quizDetails = quizDetailsRepository.findFirstByOrderByIdDesc();
-        String category = quizDetails.getCategory();
-        Number amountOfQuestions = quizDetails.getAmountOfQuestions();
-        String difficulty = quizDetails.getDifficulty();*/
-
-        // Category , amountOfQuestions and difficulty  are now available in quiz table,
-        // read from table, save to local json file, then load the last object and assign values to url.
-
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=${amountOfQuestions}&category=${category}&difficulty=${difficulty}&type=multiple").openStream());
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category="+Category+"&difficulty="+difficulty+"&type=multiple").openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
@@ -83,7 +66,6 @@ public class ResultsLoader implements CommandLineRunner {
 
         questionRepository.saveAll(questions);
     }
-
     private JsonNode getResults(JsonNode json) {
         return Optional.ofNullable(json)
                 .map(j -> j.get("results"))
@@ -97,7 +79,7 @@ public class ResultsLoader implements CommandLineRunner {
         String correct_answer = result.get("correct_answer").asText();
         String[] incorrect_answers = new String[3];
         Iterator<JsonNode> iterator = result.withArray("incorrect_answers").elements();
-       int count =0;
+        int count =0;
         while (iterator.hasNext()) {
             incorrect_answers[count] = iterator.next().asText();
             count ++;
@@ -105,5 +87,4 @@ public class ResultsLoader implements CommandLineRunner {
 
         return new QuestionModel(difficulty,category, question, correct_answer, incorrect_answers);
     }
-
 }

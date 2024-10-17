@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -18,20 +19,31 @@ public class QuestionController {
     private  QuestionService questionService;
 
     @Autowired
-    private  QuizService quizService;
+    private QuestionsLoader questionsLoader;
+
 
     // Aggregate root
     @GetMapping(path= "/allQuestions")
     public ResponseEntity<List<QuestionModel>> getAllQuestions() {
+       questionsLoader.downloadQuestions();
+
+        // set a timer for few seconds
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         List<QuestionModel> allQuestions = questionService.getAllQuestions();
 
             return new ResponseEntity<>(allQuestions, HttpStatus.OK);
     }
 
-    @PostMapping(path= "/quizDetails")
-    public ResponseEntity<QuizModel> postQuiz(@RequestBody QuizModel quizDetails) {
-        QuizModel quiz= quizService.postQuizDetails(quizDetails);
 
-        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+    @DeleteMapping(path= "/DeleteAllQuestion")
+    public  ResponseEntity<?> deleteAllQuestions() {
+        questionService.removeAll();
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }

@@ -11,5 +11,6 @@ public class QuizService {
     private  QuizRepository quizRepository;
 
     public QuizModel postQuizDetails(QuizModel quizDetails){ return quizRepository.save(quizDetails);}
+    public QuizModel GetQuizDetails(){ return quizRepository.findAll().getLast();}
 
 }

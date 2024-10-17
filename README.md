@@ -7,11 +7,11 @@ It provides the Front-end with required data, which should be loaded from Open-T
 
 The database for this project is relational. it consists of two tables (Quiz, Questions) sofar.
 
-First, the backend received the Quiz details (Number of questions, Category, difficulty level) from the frontend.
+First, the backend received the following Quiz details from the frontend (Number of questions, Category, difficulty level) .
 
-Then, the data is retrieved from Open-TRIVIA (https://opentdb.com/api_config.php) according to Quiz details.
+Then, according to the Quiz details, the data is retrieved from Open-TRIVIA (https://opentdb.com/api_config.php) .
 
-After that, the retrieved data is stored in Postgresql DB.
+After that, the retrieved data is temporary stored in Postgresql DB.
 
 
 # Development
