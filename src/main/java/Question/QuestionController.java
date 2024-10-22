@@ -24,12 +24,12 @@ public class QuestionController {
     @GetMapping(path= "/allQuestions")
     public ResponseEntity<List<QuestionModel>> getAllQuestions() {
 
-      /*questionsLoader.downloadQuestions();
+
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }*/
+        }
 
         List<QuestionModel> allQuestions = questionService.getAllQuestions();
 

@@ -21,19 +21,20 @@ public class QuizController {
 
     @PostMapping(path= "/quizDetails")
     public ResponseEntity<QuizModel> postQuiz(@RequestBody QuizModel quizDetails) {
+
         QuizModel quiz= quizService.postQuizDetails(quizDetails);
 
 
-        try {
-            TimeUnit.SECONDS.sleep(10);
+        /*try {
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
-        String category = quizService.GetQuizDetails().getCategory();
-        String difficulty = quizService.GetQuizDetails().getDifficulty();
+        /*String category = quizService.GetQuizDetails().getCategory();
+        String difficulty = quizService.GetQuizDetails().getDifficulty();*/
 
-        questionsLoader.downloadQuestions(category, difficulty);
+        questionsLoader.downloadQuestions();
 
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
