@@ -51,14 +51,14 @@ public class QuestionsLoader {
 
 
         try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category="+category+"&difficulty="+difficulty+"&type=multiple").openStream());
-             FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/Test.json")) {
+             FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/OpenTrivia.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
             // save results to database
-            InputStream inputStream = new FileInputStream("src/main/resources/Data/Test.json");
+            InputStream inputStream = new FileInputStream("src/main/resources/Data/OpenTrivia.json");
                 json = objectMapper.readValue(inputStream, JsonNode.class);
 
 
