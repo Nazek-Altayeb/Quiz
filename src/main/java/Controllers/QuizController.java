@@ -24,22 +24,10 @@ public class QuizController {
 
         QuizModel quiz= quizService.postQuizDetails(quizDetails);
 
-        /*try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
-
         questionsLoader.downloadQuestions();
 
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
 
-    @GetMapping(path= "/getQuizDetails")
-    public ResponseEntity<QuizModel> getQuiz() {
-        QuizModel quiz= quizService.GetQuizDetails();
-
-        return new ResponseEntity<>(quiz, HttpStatus.OK);
-    }
 
 }

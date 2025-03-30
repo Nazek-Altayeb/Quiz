@@ -41,11 +41,4 @@ public class QuestionsAnswersController {
         return new ResponseEntity<>(allQuestions, HttpStatus.OK);
     }
 
-
-    @DeleteMapping(path= "/DeleteAllQuestion")
-    public  ResponseEntity<?> deleteAllQuestions() {
-        questionService.removeAll();
-        return new ResponseEntity<>(HttpStatus.OK);
-
-    }
 }
