@@ -42,16 +42,17 @@ public class DataLoader {
         JsonNode json;
         String category = quizService.GetQuizDetails().getCategory();
         String difficulty = quizService.GetQuizDetails().getDifficulty();
+        String amountOfQuestions = quizService.GetQuizDetails().getAmountOfQuestions().toString();
 
 
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount=10&category="+category+"&difficulty="+difficulty+"&type=multiple").openStream());
+        try (BufferedInputStream in = new BufferedInputStream(new URL("https://opentdb.com/api.php?amount="+amountOfQuestions+"&category="+category+"&difficulty="+difficulty+"&type=multiple").openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("src/main/resources/Data/OpenTrivia.json")) {
             byte dataBuffer[] = new byte[1024];
             int bytesRead;
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
-            // save results to database
+            // save the loaded data  to the database
             InputStream inputStream = new FileInputStream("src/main/resources/Data/OpenTrivia.json");
             json = objectMapper.readValue(inputStream, JsonNode.class);
 
@@ -64,10 +65,8 @@ public class DataLoader {
             System.out.println (e.toString());
         }
 
-
-
         questionRepository.saveAll(questions);
-        //this.ResetQuizDetails();
+
     }
     private JsonNode getResults(JsonNode json) {
         return Optional.ofNullable(json)
