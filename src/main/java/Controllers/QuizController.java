@@ -1,23 +1,23 @@
-package Question;
+package Controllers;
+
+import Services.DataLoader;
+import Entities.QuizModel;
+import Services.QuizDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-
 @RestController
 @RequestMapping(path = "/quiz", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuizController {
 
     @Autowired
-    private  QuizService quizService;
+    private QuizDetailsService quizService;
 
     @Autowired
-    private QuestionsLoader questionsLoader;
+    private DataLoader questionsLoader;
 
     @PostMapping(path= "/quizDetails")
     public ResponseEntity<QuizModel> postQuiz(@RequestBody QuizModel quizDetails) {
@@ -41,6 +41,5 @@ public class QuizController {
 
         return new ResponseEntity<>(quiz, HttpStatus.OK);
     }
-
 
 }

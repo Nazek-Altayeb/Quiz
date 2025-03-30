@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication(scanBasePackages = "Nazek.Quiz")
-@EnableJpaRepositories(basePackages = "Question")
-@EntityScan(basePackages = "Question")
-@ComponentScan(basePackages = "Question")
+@EnableJpaRepositories(basePackages = "Repositories")
+@EntityScan(basePackages = "Entities")
+@ComponentScan(basePackages = "Services")
+@ComponentScan(basePackages = "Controllers")
 @ComponentScan(basePackages = "Nazek.Quiz")
 public class QuizApplication {
 

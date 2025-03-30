@@ -1,11 +1,11 @@
-package Question;
+package Services;
 
-import aj.org.objectweb.asm.TypeReference;
+import Entities.QuestionModel;
+import Repositories.QuestionsAnswersRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
@@ -14,26 +14,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-
 @Component
-public class QuestionsLoader {
+public class DataLoader {
+
 
     private final ObjectMapper objectMapper;
     @Autowired
-    private final QuestionRepository questionRepository;
+    private final QuestionsAnswersRepository questionRepository;
 
     @Autowired
-    private  QuestionService questionService;
+    private QuestionsAnswersService questionService;
 
     @Autowired
-    private final QuizService quizService;
+    private final QuizDetailsService quizService;
 
-    public QuestionsLoader(ObjectMapper objectMapper, QuestionRepository questionRepository, QuizService quizService) {
+    public DataLoader(ObjectMapper objectMapper, QuestionsAnswersRepository questionRepository, QuizDetailsService quizService) {
         this.objectMapper = objectMapper;
         this.questionRepository = questionRepository;
         this.quizService = quizService;
     }
-    
+
     public void downloadQuestions() {
         questionService.removeAll();
 
@@ -53,7 +53,7 @@ public class QuestionsLoader {
             }
             // save results to database
             InputStream inputStream = new FileInputStream("src/main/resources/Data/OpenTrivia.json");
-                json = objectMapper.readValue(inputStream, JsonNode.class);
+            json = objectMapper.readValue(inputStream, JsonNode.class);
 
 
             JsonNode results = getResults(json);

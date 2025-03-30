@@ -1,25 +1,30 @@
-package Question;
+package Controllers;
 
-
+import Entities.QuestionModel;
+import Services.QuestionsAnswersService;
+import Services.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
 @RestController
 @RequestMapping(path = "/quiz", produces = MediaType.APPLICATION_JSON_VALUE)
-public class QuestionController {
+public class QuestionsAnswersController {
+
 
     @Autowired
-    private  QuestionService questionService;
+    private QuestionsAnswersService questionService;
 
     @Autowired
-    private QuestionsLoader questionsLoader;
+    private DataLoader questionsLoader;
 
     @GetMapping(path= "/allQuestions")
     public ResponseEntity<List<QuestionModel>> getAllQuestions() {
@@ -33,7 +38,7 @@ public class QuestionController {
 
         List<QuestionModel> allQuestions = questionService.getAllQuestions();
 
-            return new ResponseEntity<>(allQuestions, HttpStatus.OK);
+        return new ResponseEntity<>(allQuestions, HttpStatus.OK);
     }
 
 
