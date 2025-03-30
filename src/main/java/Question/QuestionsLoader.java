@@ -33,16 +33,10 @@ public class QuestionsLoader {
         this.questionRepository = questionRepository;
         this.quizService = quizService;
     }
-    public void ResetQuestionsList(){
-
-        questionService.removeAll();
-    }
-
-    public void ResetQuizDetails(){
-        quizService.DeleteDetails();
-    }
+    
     public void downloadQuestions() {
-        //this.ResetQuestionsList();
+        questionService.removeAll();
+
 
         List<QuestionModel> questions = new ArrayList<>();
         JsonNode json;
