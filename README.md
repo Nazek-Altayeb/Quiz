@@ -5,7 +5,7 @@ It provides the Front-end with required data, which should be loaded from Open-T
 
 # System design
 
-The database for this project is relational. Currently it consists of two tables (Quiz, Questions).
+The database for this project is relational. Currently it consists of these tables.
 
 ```mermaid
 erDiagram
