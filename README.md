@@ -1,6 +1,6 @@
 # Goal
 
-Build API that serves the following front-end : https://github.com/Nazek-Altayeb/Quiz-Frontend.
+Build API that serves the following [front-end](https://github.com/Nazek-Altayeb/Quiz-Frontend).
 It provides the Front-end with required data, which should be loaded from Open-TRIVIA in real time, Complies with end user inputs.
 
 # System design
@@ -56,7 +56,7 @@ erDiagram
 
 - The frontend sends quiz parameters: number of questions, category, and difficulty.
 
-- The backend uses these parameters to fetch questions from Open Trivia [Encyclopedia](https://opentdb.com/api_config.php).
+- The backend uses these parameters to fetch questions from Open-Trivia [Encyclopedia](https://opentdb.com/api_config.php).
 
 - The fetched data is temporarily stored in the PostgreSQL database.
 
