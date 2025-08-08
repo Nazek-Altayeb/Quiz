@@ -1,7 +1,10 @@
 # Goal
 
-Build API that serves the following [front-end](https://github.com/Nazek-Altayeb/Quiz-Frontend).
-It provides the Front-end with required data, which should be loaded from Open-TRIVIA [Encyclopedia](https://opentdb.com/api_config.php) in real time, Complies with end user inputs.
+The objective of this project is to develop a robust and scalable REST API that powers the Quiz [Frontend](https://github.com/Nazek-Altayeb/Quiz-Frontend). The API dynamically serves quiz content based on user-selected criteria such as question count, category, and difficulty level.
+
+All questions are retrieved in real time from the Open Trivia [Encyclopedia](https://opentdb.com/api_config.php) and are temporarily stored in a PostgreSQL database for processing. The API is designed to comply with frontend requests while ensuring speed, reliability, and a clean separation of concerns.
+
+This system serves as the foundation for a more advanced CMS solution tailored to educational institutions, enabling quiz creation, user management, and performance tracking.
 
 # System design
 
