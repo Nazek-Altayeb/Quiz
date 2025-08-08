@@ -56,7 +56,7 @@ erDiagram
 
 - The frontend sends quiz parameters: number of questions, category, and difficulty.
 
-- The backend uses these parameters to fetch questions from Open Trivia DB (https://opentdb.com/api_config.php).
+- The backend uses these parameters to fetch questions from Open Trivia [Encyclopedia](https://opentdb.com/api_config.php).
 
 - The fetched data is temporarily stored in the PostgreSQL database.
 
