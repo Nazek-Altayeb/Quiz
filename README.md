@@ -1,7 +1,7 @@
 # Goal
 
 Build API that serves the following [front-end](https://github.com/Nazek-Altayeb/Quiz-Frontend).
-It provides the Front-end with required data, which should be loaded from Open-TRIVIA in real time, Complies with end user inputs.
+It provides the Front-end with required data, which should be loaded from Open-TRIVIA [Encyclopedia](https://opentdb.com/api_config.php) in real time, Complies with end user inputs.
 
 # System design
 
