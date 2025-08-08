@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -40,5 +41,14 @@ public class QuestionsAnswersController {
 
         return new ResponseEntity<>(allQuestions, HttpStatus.OK);
     }
+
+    @GetMapping(path = "/questionDetails/{questionId}")
+    public ResponseEntity<Optional<QuestionModel>> getQuestionDetail(@PathVariable("questionId") int questionId){
+        Optional<QuestionModel> question = questionService.getQuestionDetails(questionId);
+
+        return new ResponseEntity<>(question, HttpStatus.OK);
+    }
+
+
 
 }
